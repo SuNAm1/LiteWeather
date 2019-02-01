@@ -22,3 +22,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  
+.city {
+  font-family: Segoe UI;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}
+
+.date {
+  color: white;
+  font-family: roboto;
+  font-weight: 100;
+  text-align: center;
+  font-size: 20px;
+}
+</style>
