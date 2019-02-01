@@ -1,17 +1,15 @@
 <template>
   <div :class="bg">
       <div :class="period">
-
         <Header />
         <Middle />
-        <Footer />
-        
+        <Footer /> 
       </div>
   </div>
 </template>
 
 <script>
-import { getTheme, API, KEY  } from './helper/time.helper'
+import { getTheme } from './helper/time.helper'
 import { mapState, mapActions } from 'vuex'
 import Header from './components/Header.vue'
 import Middle from './components/Middle.vue'
@@ -27,24 +25,25 @@ export default {
   methods: {
     ...mapActions([ 'getWeather' ]),
 
-    geolocation() {
-      navigator.geolocation.getCurrentPosition(this.buildUrl, this.geoError);
-    },
+    // geolocation() {
+    //   navigator.geolocation.getCurrentPosition(this.buildUrl, this.geoError);
+    // },
 
-    buildUrl(position) {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
+    // buildUrl(position) {
+    //   const lat = position.coords.latitude;
+    //   const lon = position.coords.longitude;
 
-      this.getWeather(API + '&lat=' + lat + '&lon=' + lon + KEY);
-    },
+    //   this.getWeather(API + '&lat=' + lat + '&lon=' + lon + KEY);
+    // },
 
-    geoError() {
-      this.getWeather("http://api.openweathermap.org/data/2.5/weather?zip=94027&units=metric&APPID=390e4e6a63e039237f1b345548b99954");
-    }
+    // geoError() {
+    //   this.getWeather("http://api.openweathermap.org/data/2.5/weather?zip=94027&units=metric&APPID=390e4e6a63e039237f1b345548b99954");
+    // }
   },
 
   beforeMount() {
-    this.geolocation()
+    // this.geolocation()
+    this.$store.dispatch('getWeather')
   },
 
   computed: {
