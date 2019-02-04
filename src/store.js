@@ -70,7 +70,7 @@ export default new Vuex.Store({
   actions: {
     getWeather({ commit } /* , url */) {
       axios
-        .get('http://api.openweathermap.org/data/2.5/weather?q=tehran&units=metric&APPID=390e4e6a63e039237f1b345548b99954')
+        .get('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=tehran&units=metric&APPID=390e4e6a63e039237f1b345548b99954')
         .then(({ data: { main, sys, wind, weather, name } }) => {
           commit('changeCurrentTemp', Math.floor(main.temp))
           commit('changeMinTemp', main.temp_min)
