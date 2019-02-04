@@ -5,8 +5,8 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 // export const KEY = '&APPID=390e4e6a63e039237f1b345548b99954'
 export const url = 'http://api.openweathermap.org/data/2.5/weather?q=tehran&units=metric&APPID=390e4e6a63e039237f1b345548b99954'
 
-export const getDay = function() {
-   return days[new Date().getDay()]
+export const getDay = function(date = '') {
+   return days[new Date(date).getDay()]
 }
 
 export const getMonth = function() {

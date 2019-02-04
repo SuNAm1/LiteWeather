@@ -23,7 +23,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Middle',
+  name: 'Footer',
 
   computed: {
     ...mapState(['overcast', 'humidity', 'wind','icon', 'sunrise', 'sunset']),

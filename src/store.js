@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 // helper
 import { getTime } from './helper/time.helper'
+import { setForecastData } from './helper/api.helper'
 
 
 Vue.use(Vuex)
@@ -24,6 +25,8 @@ export default new Vuex.Store({
     day: '',
     month: '',
     date: new Date(),
+    loading: true,
+    forecastData: [],
   },
 
   mutations: {
@@ -66,6 +69,12 @@ export default new Vuex.Store({
     changeCountry(state, country) {
       state.country = country
     },
+    changeLoading(state, loading) {
+      state.loading = loading
+    },
+    changeForecastData(state, forecastData) {
+      state.forecastData = forecastData
+    }
   },
   actions: {
     getWeather({ commit } /* , url */) {
@@ -83,8 +92,16 @@ export default new Vuex.Store({
           commit('changeSunset', getTime(sys.sunset*1000))
           commit('changeCity', name)
           commit('changeCountry', sys.country)
+          commit('changeLoading', false)
+
+          axios
+            .get('http://dataservice.accuweather.com/forecasts/v1/daily/5day/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&metric=true')
+            .then((response) => {
+              commit('changeForecastData', setForecastData(response.data.DailyForecasts))
+            })
+            .catch(console.log)
       })
       .catch(console.log)
-    }
+    },
   }
 })

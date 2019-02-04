@@ -1,10 +1,14 @@
 <template>
   <div :class="bg">
-      <div :class="period">
+      <div :class="period" v-if="!loading">
         <Header />
         <Middle />
         <Footer />
+        <div class="days" v-for="item in forecastData" :key="item.day">
+          <ForecastCard :item="item"/>
+        </div>
       </div>
+      <Loading v-if="loading"> </Loading>
   </div>
 </template>
 
@@ -14,16 +18,20 @@ import { mapState, mapActions } from 'vuex'
 import Header from './components/Header.vue'
 import Middle from './components/Middle.vue'
 import Footer from './components/Footer.vue'
+import Loading from './components/Loading.vue'
+import ForecastCard from './components/ForecastCard.vue'
 
 export default {
   components: {
     Header,
     Middle,
     Footer,
+    Loading,
+    ForecastCard,
   },
 
   methods: {
-    ...mapActions([ 'getWeather' ]),
+    ...mapActions([ 'getWeather', 'getForecasts' ]),
 
     // geolocation() {
     //   navigator.geolocation.getCurrentPosition(this.buildUrl, this.geoError);
@@ -48,7 +56,9 @@ export default {
 
   computed: {
     ...mapState([
-       'date'
+       'date',
+       'loading',
+       'forecastData',
     ]),
 
     period() {
@@ -80,7 +90,7 @@ body {
 
 .container-night {
   width: 100%;
-  height: 754px;
+  height: 754px; /*754*/
   display: flex;
   justify-content: center;
   align-items: center;
