@@ -1,0 +1,15 @@
+{
+  "name": "weather",
+  "id": "5c557ddf4e59c179c239d017",
+  "searchable": true,
+  "instancable": false,
+  "creator": false,
+  "inline": true,
+  "fullscreen": false,
+  "width": 350,
+  "height": 500,
+  "servIndexes": {
+    "inline": "index",
+    "main": "index"
+  }
+}

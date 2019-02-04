@@ -1,29 +1,37 @@
 <template>
   <div :class="bg">
-      <div :class="period">
-        <Header />
-        <Middle />
-        <Footer />
-      </div>
+    <div :class="period">
+      <Header/>
+      <Middle/>
+      <Footer/>
+    </div>
   </div>
 </template>
 
 <script>
-import { getTheme } from './helper/time.helper'
-import { mapState, mapActions } from 'vuex'
-import Header from './components/Header.vue'
-import Middle from './components/Middle.vue'
-import Footer from './components/Footer.vue'
+import { getTheme } from "./helper/time.helper";
+import { mapState, mapActions } from "vuex";
+import Header from "./components/Header.vue";
+import Middle from "./components/Middle.vue";
+import Footer from "./components/Footer.vue";
+// helper
+import webliteHandler from "./helper/weblite.api";
+// W
+const { W } = window;
 
 export default {
+  created() {
+    W && webliteHandler(this);
+  },
+
   components: {
     Header,
     Middle,
-    Footer,
+    Footer
   },
 
   methods: {
-    ...mapActions([ 'getWeather' ]),
+    ...mapActions(["getWeather"])
 
     // geolocation() {
     //   navigator.geolocation.getCurrentPosition(this.buildUrl, this.geoError);
@@ -43,30 +51,28 @@ export default {
 
   beforeMount() {
     // this.geolocation()
-    this.$store.dispatch('getWeather')
+    this.$store.dispatch("getWeather");
   },
 
   computed: {
-    ...mapState([
-       'date'
-    ]),
+    ...mapState(["date"]),
 
     period() {
-      return getTheme(this.date, true)
+      return getTheme(this.date, true);
     },
 
     bg() {
-      return getTheme(this.date, false)
+      return getTheme(this.date, false);
     }
   }
-}
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 body {
-  margin: 0
+  margin: 0;
 }
 
 .container-day {
@@ -75,7 +81,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #6CB9C8;
+  background: #6cb9c8;
 }
 
 .container-night {
@@ -84,26 +90,25 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #484F60;
+  background: #484f60;
 }
 
 .card-day {
   width: 300px;
   height: 350px;
-  background: #9ACED8;
+  background: #9aced8;
   margin: 50px auto;
-  box-shadow: 6px 12px 6px #3E6972;
+  box-shadow: 6px 12px 6px #3e6972;
   border-radius: 10px;
   padding-top: 10px;
 }
 .card-night {
   width: 300px;
   height: 350px;
-  background: #565E6B;
+  background: #565e6b;
   margin: 50px auto;
-  box-shadow: 6px 12px 6px #1B2024;
+  box-shadow: 6px 12px 6px #1b2024;
   border-radius: 10px;
   padding-top: 10px;
 }
-
 </style>
