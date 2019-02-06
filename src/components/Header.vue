@@ -1,6 +1,6 @@
 <template>
    <section>
-      <div class="city"> {{city}}, {{country}}</div>
+      <div class="city"> Tehran{{city}}, IR{{country}}</div>
       <div class="date">{{day}} , {{date.getDate()}} {{month}} {{date.getFullYear()}}</div>
    </section>
 </template>

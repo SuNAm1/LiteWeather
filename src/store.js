@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 // helper
-import { getTime } from './helper/time.helper'
+//import { getTime } from './helper/time.helper'
 import { setForecastData } from './helper/api.helper'
 
 
@@ -27,6 +27,7 @@ export default new Vuex.Store({
     date: new Date(),
     loading: true,
     forecastData: [],
+    isDay: false,
   },
 
   mutations: {
@@ -74,34 +75,38 @@ export default new Vuex.Store({
     },
     changeForecastData(state, forecastData) {
       state.forecastData = forecastData
+    },
+    changeIsDay(state, isDay) {
+      state.isDay = isDay
     }
   },
   actions: {
     getWeather({ commit } /* , url */) {
       axios
-        .get('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=tehran&units=metric&APPID=390e4e6a63e039237f1b345548b99954')
-        .then(({ data: { main, sys, wind, weather, name } }) => {
-          commit('changeCurrentTemp', Math.floor(main.temp))
-          commit('changeMinTemp', main.temp_min)
-          commit('changeMaxTemp', main.temp_max)
-          commit('changeHumidity', main.humidity + '%')
-          commit('changeWind', wind.speed + 'm/s')
-          commit('changeOvercast', weather[0].description)
-          commit('changeIcon', require("./assets/" + weather[0].icon.slice(0, 2) + ".svg"))
-          commit('changeSunrise', getTime(sys.sunrise*1000))
-          commit('changeSunset', getTime(sys.sunset*1000))
-          commit('changeCity', name)
-          commit('changeCountry', sys.country)
+        .get('http://dataservice.accuweather.com/currentconditions/v1/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&details=true')
+        //mGqmK8sqeUGhuRKAveOFZ86cEhAPiNAd
+        .then((response) => { //{ data: { WeatherText, /*WeatherIcon, */Temperature, Past24HourRange, RelativeHumidity, Wind  } }
+          commit('changeIsDay', response.data[0].isDayTime)
+          commit('changeCurrentTemp', Math.floor(response.data[0].Temperature.Metric.Value))
+          commit('changeMinTemp', Math.floor(response.data[0].TemperatureSummary.Past24HourRange.Minimum.Metric.Value))
+          commit('changeMaxTemp', Math.floor(response.data[0].TemperatureSummary.Past24HourRange.Maximum.Metric.Value))
+          commit('changeHumidity', response.data[0].RelativeHumidity + '%')
+          commit('changeWind', response.data[0].Wind.Speed.Metric.Value + 'km/h')
+          commit('changeOvercast', response.data[0].WeatherText)
+          commit('changeIcon', require("./assets/" + response.data[0].WeatherIcon + ".svg"))
+          //commit('changeSunrise', getTime(sys.sunrise*1000))
+          //commit('changeSunset', getTime(sys.sunset*1000))
+          //commit('changeCity', name)
+          //commit('changeCountry', sys.country)
           commit('changeLoading', false)
-
           axios
             .get('http://dataservice.accuweather.com/forecasts/v1/daily/5day/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&metric=true')
-            .then((response) => {
-              commit('changeForecastData', setForecastData(response.data.DailyForecasts))
+            .then(({ data: { DailyForecasts }}) => {
+              commit('changeForecastData', setForecastData(DailyForecasts))
             })
             .catch(console.log)
       })
       .catch(console.log)
-    },
+    }
   }
 })

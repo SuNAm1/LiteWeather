@@ -1,14 +1,15 @@
 import * as R from 'ramda'
-import { getDay } from './time.helper'
+import { getShortDay } from './time.helper'
 
 export const setForecastData = function(nextDays) {
    return R.compose(
-      R.remove(0, 2),
-      R.map(item => ({
-      min: item.Temperature.Minimum.Value, 
-      max: item.Temperature.Maximum.Value,
-      icon: item.Day.Icon,
-      day: getDay(item.Date),
-   }),
-   ))(nextDays)
+      R.map(({ Temperature, Day, Date }) => ({
+         min: Math.floor(Temperature.Minimum.Value), 
+         max: Math.floor(Temperature.Maximum.Value),
+         icon: require(`../assets/${Day.Icon}.svg`),
+         day: getShortDay(Date),
+      })
+      // ,
+      // R.remove(0, 2),
+      ))(nextDays)
 }

@@ -1,19 +1,21 @@
 <template>
-  <div :class="bg">
-      <div :class="period" v-if="!loading">
-        <Header />
-        <Middle />
-        <Footer />
-        <div class="days" v-for="item in forecastData" :key="item.day">
-          <ForecastCard :item="item"/>
-        </div>
+  <div class="container-base" :class="container">
+    <div :class="currentCard" v-if="!loading">
+      <Header />
+      <Middle />
+      <Footer />
+    </div>
+    <Loading v-if="loading"> </Loading>
+    <div class="forecast-panel">
+      <div :class='forecastItem' v-for="item in forecastData" :key="item.day">
+        <ForecastCard :item="item"/>
       </div>
-      <Loading v-if="loading"> </Loading>
+    </div>
   </div>
 </template>
 
 <script>
-import { getTheme } from './helper/time.helper'
+import { getTheme, getForecastTheme } from './helper/time.helper'
 import { mapState, mapActions } from 'vuex'
 import Header from './components/Header.vue'
 import Middle from './components/Middle.vue'
@@ -55,19 +57,18 @@ export default {
   },
 
   computed: {
-    ...mapState([
-       'date',
-       'loading',
-       'forecastData',
-    ]),
+    ...mapState(['date','loading','forecastData', 'isDay']),
 
-    period() {
-      return getTheme(this.date, true)
+    currentCard() {
+      return getTheme(this.date, this.isDay, true)
     },
 
-    bg() {
-      return getTheme(this.date, false)
-    }
+    container() {
+      return getTheme(this.date, this.isDay, false)
+    },
+    forecastItem() {
+      return getForecastTheme(this.date, this.isDay)
+    },
   }
 }
 </script>
@@ -76,30 +77,28 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 body {
-  margin: 0
+  margin: 0px;
+}
+
+.container-base {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-day {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #6CB9C8;
 }
 
 .container-night {
-  width: 100%;
-  height: 754px; /*754*/
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #484F60;
 }
 
 .card-day {
+  margin-top: 50px;
   width: 300px;
-  height: 350px;
   background: #9ACED8;
   margin: 50px auto;
   box-shadow: 6px 12px 6px #3E6972;
@@ -107,8 +106,8 @@ body {
   padding-top: 10px;
 }
 .card-night {
+  margin-top: 50px;
   width: 300px;
-  height: 350px;
   background: #565E6B;
   margin: 50px auto;
   box-shadow: 6px 12px 6px #1B2024;
@@ -116,4 +115,72 @@ body {
   padding-top: 10px;
 }
 
+.days {
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
+}
+
+.forecast-panel {
+  text-align: center;
+  width: 300px;
+  height: 134px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 50px;
+}
+
+.forecast-item-day {
+  width: 60px;
+  height: 134px;
+  display: flex;
+  color: white;
+  font-family: roboto;
+  flex-direction: row;
+}
+
+.forecast-item-night {
+  width: 60px;
+  height: 134px;
+  display: flex;
+  color: white;
+  font-family: roboto;
+  flex-direction: row;
+}
+
+.forecast-item-day:nth-child(even) {
+  background: #6DB9C6;
+}
+
+.forecast-item-night:nth-child(even) {
+  background: #606D7B;
+}
+
+.forecast-item-day:nth-child(odd) {
+  background: #9BCDD7;
+}
+
+.forecast-item-night:nth-child(odd) {
+  background: #565E6B;
+}
+
+.forecast-item-day:first-child {
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px; 
+}
+
+.forecast-item-night:first-child {
+  border-top-left-radius: 10px; 
+  border-bottom-left-radius: 10px; 
+}
+
+.forecast-item-day:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;       
+}
+
+.forecast-item-night:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;       
+}
 </style>

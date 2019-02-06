@@ -3,8 +3,8 @@
       <div class="des">{{overcast}}</div>
       <div class="Bottom">
           <div class="left">
-            <img src="../assets/humidity.svg"> {{humidity}}
-            <img src="../assets/wind.svg"> {{wind}}
+            <abbr title="Humidity"> <img src="../assets/humidity.svg"> </abbr> {{humidity}}
+            
           </div>
 
           <div class="mid">
@@ -12,9 +12,10 @@
           </div>
 
           <div class="right">
-            <img src="../assets/sunrise.svg">{{sunrise}}
-            <img src="../assets/sunset.svg">{{sunset}}
-          </div>
+            <abbr title="Wind Speed"> <img src="../assets/wind.svg"> </abbr> {{wind}} 
+           <!-- <img src="../assets/sunrise.svg">{{sunrise}}
+            <img src="../assets/sunset.svg">{{sunset}} -->
+          </div> 
         </div>
    </section>
 </template>
@@ -73,8 +74,8 @@ export default {
 }
 
 .mid img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   vertical-align: middle;
 }
 
