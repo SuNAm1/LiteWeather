@@ -5,7 +5,6 @@
   "instancable": false,
   "creator": false,
   "inline": true,
-  "fullscreen": false,
   "width": 350,
   "height": 500,
   "servIndexes": {

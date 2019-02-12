@@ -1,53 +1,65 @@
 <template>
-   <section>
-      <div class="des">{{overcast}}</div>
-      <div class="Bottom">
-          <div class="left">
-            <abbr title="Humidity"> <img src="../assets/humidity.svg"> </abbr> {{humidity}}
-            
-          </div>
+  <section>
+    <div class="des">{{overcast}}</div>
+    <div class="Bottom">
+      <div class="left">
+        <abbr title="Humidity">
+          <img src="../assets/humidity.svg">
+        </abbr>
+        {{humidity}}
+      </div>
 
-          <div class="mid">
-            <img :src="icon" :alt="icon"> 
-          </div>
+      <div class="mid">
+        <img :src="icon" :alt="icon">
+      </div>
 
-          <div class="right">
-            <abbr title="Wind Speed"> <img src="../assets/wind.svg"> </abbr> {{wind}} 
-          </div> 
-        </div>
-        <div class="share">
-          <abbr title="Share Weather"><button @click="sendWeather">
-            <img src="../assets/share.svg"></button> </abbr>  
-        </div>
-   </section>
+      <div class="right">
+        <abbr title="Wind Speed">
+          <img src="../assets/wind.svg">
+        </abbr>
+        {{wind}}
+      </div>
+    </div>
+    <div class="share">
+      <abbr title="Share Weather">
+        <button @click="sendWeather">
+          <img src="../assets/share.svg">
+        </button>
+      </abbr>
+    </div>
+  </section>
 </template>
-  
+
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
+// W
+const { W } = window;
 
 export default {
-  name: 'Footer',
+  name: "Footer",
 
   methods: {
     sendWeather() {
-      return {
-        overcast: this.overcast,
-        currentTemp: this.currentTemp,
-        icon: this.icon,
-        minTemp: this.minTemp,
-        maxTemp: this.maxTemp,
-      }
+      W.sendMessageToCurrentChat("wapp", {
+        wappId: "5c630557df55d572c98109b4",
+        customize: {
+          overcast: this.overcast,
+          currentTemp: this.currentTemp,
+          icon: this.icon,
+          minTemp: this.minTemp,
+          maxTemp: this.maxTemp
+        }
+      });
     }
   },
 
   computed: {
-    ...mapState(['overcast', 'humidity', 'wind','icon', 'sunrise', 'sunset']),
-  },
-}
+    ...mapState(["overcast", "humidity", "wind", "icon", "sunrise", "sunset"])
+  }
+};
 </script>
 
 <style scoped>
-  
 .des {
   color: white;
   font-family: Segoe UI;
@@ -64,13 +76,13 @@ export default {
 }
 
 .Bottom {
-    width: 100%;
-    padding-top: 5px;
-    display: flex;
-    justify-content: space-evenly;
+  width: 100%;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.left { 
+.left {
   font-family: Segoe UI;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.75);
@@ -105,7 +117,7 @@ export default {
 }
 
 .right img {
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
 .share {
@@ -117,10 +129,10 @@ export default {
 
 button {
   background-color: Transparent;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
 }
 </style>
