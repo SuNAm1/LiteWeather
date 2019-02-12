@@ -11,12 +11,14 @@
 
 <script>
 import { getForecastTheme } from '../helper/time.helper'
+import { mapState } from 'vuex'
 
 export default {
    name: 'ForecastCard',
    props: ['item'],
 
    computed: {
+      ...mapState(['isDay']),
       max() {
          return getForecastTheme(this.date, this.isDay, 'max')
        },
@@ -77,4 +79,8 @@ export default {
   border-top-right-radius: 10px; 
   margin: 0px 9px;
 }   
+
+img {
+  margin-top: -5px;
+}
 </style>
