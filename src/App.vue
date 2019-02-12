@@ -89,7 +89,7 @@ body {
 }
 
 .container-day {
-  background: #6CB9C8;
+  background: #D8F9FF;
 }
 
 .container-night {
@@ -128,6 +128,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 50px;
+  box-shadow: 6px 12px 6px #1B2024;
 }
 
 .forecast-item-day {
@@ -149,7 +150,7 @@ body {
 }
 
 .forecast-item-day:nth-child(even) {
-  background: #6DB9C6;
+  background: #6CB9C8;
 }
 
 .forecast-item-night:nth-child(even) {

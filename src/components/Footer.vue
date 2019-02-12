@@ -111,7 +111,8 @@ export default {
 .share {
   margin: 0 auto;
   margin-left: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
+  margin-top: -20px;
 }
 
 button {

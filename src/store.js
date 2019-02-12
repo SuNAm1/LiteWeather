@@ -86,7 +86,7 @@ export default new Vuex.Store({
         .get('http://dataservice.accuweather.com/currentconditions/v1/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&details=true')
         //mGqmK8sqeUGhuRKAveOFZ86cEhAPiNAd
         .then((response) => { //{ data: { WeatherText, /*WeatherIcon, */Temperature, Past24HourRange, RelativeHumidity, Wind  } }
-          commit('changeIsDay', response.data[0].isDayTime)
+          commit('changeIsDay', response.data[0].IsDayTime)
           commit('changeCurrentTemp', Math.floor(response.data[0].Temperature.Metric.Value))
           commit('changeMinTemp', Math.floor(response.data[0].TemperatureSummary.Past24HourRange.Minimum.Metric.Value))
           commit('changeMaxTemp', Math.floor(response.data[0].TemperatureSummary.Past24HourRange.Maximum.Metric.Value))
