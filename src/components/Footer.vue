@@ -13,9 +13,11 @@
 
           <div class="right">
             <abbr title="Wind Speed"> <img src="../assets/wind.svg"> </abbr> {{wind}} 
-           <!-- <img src="../assets/sunrise.svg">{{sunrise}}
-            <img src="../assets/sunset.svg">{{sunset}} -->
           </div> 
+        </div>
+        <div class="share">
+          <abbr title="Share Weather"><button @click="sendWeather">
+            <img src="../assets/share.svg"></button> </abbr>  
         </div>
    </section>
 </template>
@@ -25,6 +27,18 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Footer',
+
+  methods: {
+    sendWeather() {
+      return {
+        overcast: this.overcast,
+        currentTemp: this.currentTemp,
+        icon: this.icon,
+        minTemp: this.minTemp,
+        maxTemp: this.maxTemp,
+      }
+    }
+  },
 
   computed: {
     ...mapState(['overcast', 'humidity', 'wind','icon', 'sunrise', 'sunset']),
@@ -63,6 +77,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 5px;
 }
 
 .left img {
@@ -77,6 +92,7 @@ export default {
   width: 130px;
   height: 130px;
   vertical-align: middle;
+  margin-left: 17px;
 }
 
 .right {
@@ -90,5 +106,20 @@ export default {
 
 .right img {
   vertical-align: middle;  
+}
+
+.share {
+  margin: 0 auto;
+  margin-left: 15px;
+  margin-bottom: 25px;
+}
+
+button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
 }
 </style>
