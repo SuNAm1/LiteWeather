@@ -3,8 +3,8 @@
       <div class="des">{{overcast}}</div>
       <div class="Bottom">
           <div class="left">
-            <img src="../assets/humidity.svg"> {{humidity}}
-            <img src="../assets/wind.svg"> {{wind}}
+            <abbr title="Humidity"> <img src="../assets/humidity.svg"> </abbr> {{humidity}}
+            
           </div>
 
           <div class="mid">
@@ -12,9 +12,12 @@
           </div>
 
           <div class="right">
-            <img src="../assets/sunrise.svg">{{sunrise}}
-            <img src="../assets/sunset.svg">{{sunset}}
-          </div>
+            <abbr title="Wind Speed"> <img src="../assets/wind.svg"> </abbr> {{wind}} 
+          </div> 
+        </div>
+        <div class="share">
+          <abbr title="Share Weather"><button @click="sendWeather">
+            <img src="../assets/share.svg"></button> </abbr>  
         </div>
    </section>
 </template>
@@ -23,7 +26,19 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Middle',
+  name: 'Footer',
+
+  methods: {
+    sendWeather() {
+      return {
+        overcast: this.overcast,
+        currentTemp: this.currentTemp,
+        icon: this.icon,
+        minTemp: this.minTemp,
+        maxTemp: this.maxTemp,
+      }
+    }
+  },
 
   computed: {
     ...mapState(['overcast', 'humidity', 'wind','icon', 'sunrise', 'sunset']),
@@ -62,6 +77,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 5px;
 }
 
 .left img {
@@ -73,9 +89,10 @@ export default {
 }
 
 .mid img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   vertical-align: middle;
+  margin-left: 17px;
 }
 
 .right {
@@ -89,5 +106,21 @@ export default {
 
 .right img {
   vertical-align: middle;  
+}
+
+.share {
+  margin: 0 auto;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  margin-top: -20px;
+}
+
+button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
 }
 </style>

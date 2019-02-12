@@ -7,7 +7,7 @@
             <div class="temp_scale">
                 <span>&deg;C</span>
             </div>
-            <div class="high"> <img src="../assets/high.svg" alt=""> {{maxTemp}} &deg; </div>
+            <div class="high"> <img src="../assets/high.svg"> {{maxTemp}} &deg; </div>
             <div class="low"> <img src="../assets/low.svg"> {{minTemp}} &deg; </div>
           </div>
       </div>
