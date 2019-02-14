@@ -1,0 +1,13 @@
+{
+  "name": "weather",
+  "id": "5c557ddf4e59c179c239d017",
+  "searchable": true,
+  "instancable": false,
+  "creator": false,
+  "inline": false,
+  "servIndexes": {
+    "inline": "index",
+    "main": "index"
+  },
+  "version": "1.0.1"
+}
