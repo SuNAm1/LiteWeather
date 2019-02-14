@@ -6,7 +6,7 @@
       <Footer/>
     </div>
     <Loading v-if="loading"></Loading>
-    <div class="forecast-panel">
+    <div class="forecast-panel" v-if="!loading">
       <div :class="forecastItem" v-for="item in forecastData" :key="item.day">
         <ForecastCard :item="item"/>
       </div>
@@ -83,10 +83,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-
-body {
-  margin: 0px;
-}
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 .container-base {
   width: 100%;
@@ -97,19 +94,21 @@ body {
 }
 
 .container-day {
-  background: #d8f9ff;
+  background: #87e9fc;
+  height: 100%;
 }
 
 .container-night {
   background: #484f60;
+  height: 100%;
 }
 
 .card-day {
   margin-top: 50px;
   width: 300px;
-  background: #9aced8;
+  background: #0090ac;
   margin: 50px auto;
-  box-shadow: 6px 12px 6px #3e6972;
+  box-shadow: 6px 12px 6px #0000002d;
   border-radius: 10px;
   padding-top: 10px;
 }
@@ -118,7 +117,7 @@ body {
   width: 300px;
   background: #565e6b;
   margin: 50px auto;
-  box-shadow: 6px 12px 6px #1b2024;
+  box-shadow: 6px 12px 6px #0000004f;
   border-radius: 10px;
   padding-top: 10px;
 }
@@ -136,7 +135,8 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 50px;
-  box-shadow: 6px 12px 6px #1b2024;
+  box-shadow: 6px 12px 6px #0000002d;
+  border-radius: 10px;
 }
 
 .forecast-item-day {
@@ -158,7 +158,7 @@ body {
 }
 
 .forecast-item-day:nth-child(even) {
-  background: #6cb9c8;
+  background: #28c1df;
 }
 
 .forecast-item-night:nth-child(even) {
@@ -166,7 +166,7 @@ body {
 }
 
 .forecast-item-day:nth-child(odd) {
-  background: #9bcdd7;
+  background: #0090ac;
 }
 
 .forecast-item-night:nth-child(odd) {

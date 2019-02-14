@@ -10,7 +10,7 @@
       </div>
 
       <div class="mid">
-        <img :src="icon" :alt="icon">
+        <img :src="`./assets/${icon}.svg`">
       </div>
 
       <div class="right">
@@ -54,7 +54,15 @@ export default {
   },
 
   computed: {
-    ...mapState(["overcast", "humidity", "wind", "icon", "sunrise", "sunset"])
+    ...mapState([
+      "overcast",
+      "humidity",
+      "wind",
+      "icon",
+      "currentTemp",
+      "minTemp",
+      "maxTemp"
+    ])
   }
 };
 </script>

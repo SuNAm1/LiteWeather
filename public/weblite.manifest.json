@@ -4,11 +4,10 @@
   "searchable": true,
   "instancable": false,
   "creator": false,
-  "inline": true,
-  "width": 350,
-  "height": 500,
+  "inline": false,
   "servIndexes": {
     "inline": "index",
     "main": "index"
-  }
+  },
+  "version": "1.0.1"
 }

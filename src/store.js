@@ -83,9 +83,10 @@ export default new Vuex.Store({
     getWeather({ commit } /* , url */) {
       axios
         .get(
-          "http://dataservice.accuweather.com/currentconditions/v1/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&details=true"
+          "https://dataservice.accuweather.com/currentconditions/v1/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&details=true"
         )
         //mGqmK8sqeUGhuRKAveOFZ86cEhAPiNAd
+        //g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe
         .then(response => {
           //{ data: { WeatherText, /*WeatherIcon, */Temperature, Past24HourRange, RelativeHumidity, Wind  } }
           commit("changeIsDay", response.data[0].IsDayTime);
@@ -113,10 +114,7 @@ export default new Vuex.Store({
             response.data[0].Wind.Speed.Metric.Value + "km/h"
           );
           commit("changeOvercast", response.data[0].WeatherText);
-          commit(
-            "changeIcon",
-            require("./assets/" + response.data[0].WeatherIcon + ".svg")
-          );
+          commit("changeIcon", response.data[0].WeatherIcon);
           //commit('changeSunrise', getTime(sys.sunrise*1000))
           //commit('changeSunset', getTime(sys.sunset*1000))
           //commit('changeCity', name)
@@ -124,7 +122,7 @@ export default new Vuex.Store({
           commit("changeLoading", false);
           axios
             .get(
-              "http://dataservice.accuweather.com/forecasts/v1/daily/5day/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&metric=true"
+              "https://dataservice.accuweather.com/forecasts/v1/daily/5day/210841?apikey=g2XxGTm8w9qkGAkzBY7ZdwHoKaIXxEOe&metric=true"
             )
             .then(({ data: { DailyForecasts } }) => {
               commit("changeForecastData", setForecastData(DailyForecasts));
